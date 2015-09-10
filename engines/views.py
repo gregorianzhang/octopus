@@ -1,8 +1,13 @@
 from django.shortcuts import render
 
+from models import Engines
+
 # Create your views here.
 
 def lists(request):
+    allengines = Engines.objects.all()
+    if allengines:
+        bb = allengines
     return render(request,'bs1/engines/lists.html',locals())
 
 def add(request):

@@ -4,5 +4,12 @@
 {% endblock %}
 
 {% block body %}
-EEEEEE
+
+{% if not bb %}
+<button type="button" class="btn btn-success btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+</button>
+{% endif %}
+
+
 {% endblock %}
