@@ -1,6 +1,6 @@
 from django import forms
 
-class AddEngine(form.Form):
+class AddEngineForm(forms.Form):
     Name = forms.CharField(max_length=30)
     Cpus = forms.IntegerField()
     Memory = forms.IntegerField()
