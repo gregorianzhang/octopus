@@ -4,11 +4,62 @@ from models import Engines
 from forms import AddEngineForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import json
+import urllib3
+
 
 # Create your views here.
+def docker(host,command,method,data):
+    http = urllib3.PoolManager()
+    url = host + "/" + command
+    if method == 'GET':
+        try:
+            r = http.request(method,url)
+        except :
+            return '{"error":"error"}'
+    elif method == 'POST':
+        try:
+            r = http.request(method,url,data)
+        except :
+            return '{"error":"error"}'
+    else:
+        print "Error"
+
+    if r.status == 200:
+        return r.data
+    else:
+        return '{"error":"error"}'
+
+def getdata(data,key):
+    temp = json.loads(data)
+    try:
+        return temp[key]
+    except:
+        return "error"
 
 def lists(request):
-    allengines = Engines.objects.all()
+    allengines1 = Engines.objects.all()
+    allengines = []
+    bb={}
+    n=1
+    for x in allengines1:
+        bb['id'] = n
+        bb['Name'] = x.Name
+        bb['Cpus'] = x.Cpus
+        bb['Memory'] = x.Memory
+        bb['Addr'] = x.Addr
+        vdata = getdata(docker(x.Addr,'version','GET',""),'Version')
+        if vdata != 'error':
+            bb['status']='up'
+        else:
+            bb['status']='down'
+        bb['Version'] = vdata
+        allengines.append(bb)
+        print allengines
+        bb={}
+        n += 1
+
+
     limit = 25
     paginator = Paginator(allengines,limit)
 
@@ -67,6 +118,9 @@ def add(request):
 def remove(request):
     return render(request,'bs1/engines/remove.html',locals())
 
-def detail(request):
+def detail(request,engine):
+    print engine
+    bb = Engines.objects.filter(Addr=engine)
+    print bb
     return render(request,'bs1/engines/detail.html',locals())
 

@@ -6,5 +6,5 @@ urlpatterns = patterns('',
     url(r'lists/$', views.lists, name='lists'),
     url(r'add/$', views.add, name='add'),
     url(r'remove/$', views.remove, name='remove'),
-    url(r'detail/$', views.detail, name='detail'),
+    url(r'detail/(http://.+)$', views.detail, name='detail'),
 )

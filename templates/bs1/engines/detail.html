@@ -1,0 +1,35 @@
+{% extends 'bs1/base/base.html' %}
+{% block header %} 
+<title>engines detail</title>
+{% endblock %}
+
+{% block body %}
+
+<button type="button" class="btn btn-danger btn-lg">
+<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Remove
+</button>
+
+{% if bb %}
+{% for x in bb %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="text-center"> <h2><bold>Name</bold></h2></div>
+        <div class="text-center"> <h4><i>{{x.Name}}</i></h4></div>
+        <hr>
+        <div class="text-center"> <h2><bold>Addr</bold></h2></div>
+        <div class="text-center"> <h4><i>{{x.Addr}}</i></h4></div>
+        <hr>
+        <div class="text-center"> <h2><bold>Resources</bold></h2></div>
+        <div class="text-center"> <h4><span>CPU:</span> <i>{{x.Cpus}}</i></h4></div>
+        <div class="text-center"> <h4><span>Memory:</span> <i>{{x.Memory}}</i></h4></div>
+        <hr>
+    </div>
+    <div class="col-md-4">AA</div>
+    <div class="col-md-4">BB</div>
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock %}
