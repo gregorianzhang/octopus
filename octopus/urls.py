@@ -17,8 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from engines import urls as engines_urls
+from containers import urls as containers_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^engines/', include(engines_urls)),
+    url(r'^containers/', include(containers_urls)),
 ]

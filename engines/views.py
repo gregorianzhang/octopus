@@ -1,16 +1,19 @@
 from django.shortcuts import render
 
+from django.http import HttpResponse
 from models import Engines
 from forms import AddEngineForm
 
+from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 import urllib3
 
 
+http = urllib3.PoolManager()
 # Create your views here.
 def docker(host,command,method,data):
-    http = urllib3.PoolManager()
+    #http = urllib3.PoolManager()
     url = host + "/" + command
     if method == 'GET':
         try:
@@ -116,11 +119,23 @@ def add(request):
     return render(request,'bs1/engines/add.html',locals())
 
 def remove(request):
-    return render(request,'bs1/engines/remove.html',locals())
+    if request.method == 'POST':
+	data = request.POST['engines']
+	Engines.objects.filter(Addr=data).delete()
+        #return HttpResponse("POST ABC")
+	return HttpResponseRedirect('engines/lists/')
+    else:
+    #print request.POST['engines']
+    
+    #return render(request,'bs1/engines/remove.html',locals())
+        return HttpResponseRedirect('engines/lists/')
 
 def detail(request,engine):
     print engine
     bb = Engines.objects.filter(Addr=engine)
-    print bb
+    print len(bb)
+    cc = bb[0]
+    print cc.Addr,cc.Name
     return render(request,'bs1/engines/detail.html',locals())
+
 
