@@ -1,0 +1,63 @@
+{% extends 'bs1/base/base.html' %}
+{% block header %} 
+<title>containers list</title>
+{% endblock %}
+
+{% block body %}
+
+<button type="button" class="btn btn-success btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create
+</button>
+
+{% if all%}
+<table class="table table-striped">
+    <thead>
+	<tr>
+	    <th>#</th>
+        <th>status</th>
+        <th>Id</th>
+	    <th>Name</th>
+	    <th>Image</th>
+	    <th>Engine</th>
+	</tr>
+    </thead>
+    <tbody>
+    {% for x in all %}
+    <tr>
+	<th> {{ forloop.counter }} </th>
+    <th><span class="" title="{{x.Status}}"></span></th>
+    <th> <a href="/containers/detail/{{ x.Id }}"> {{ x.Id|slice:":12" }} </a></th>
+	<th> {{ x.Names }} </th>
+	<th> {{ x.Image }} </th>
+    <th> {{ x.Engine }} </th>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<!--
+<nav>
+    <ul class="pagination">
+        <li><a href="?page=1" aria-label="Previous"><span class="glyphicon glyphicon-fast-backward" data-toggle="tooltip" data-placement="top" title="首页"></span></a>
+        {% if filelist.has_previous %}
+        <li><a href="?page={{ filelist.previous_page_number }}" aria-label="Previous"><span class="glyphicon glyphicon-backward" data-toggle="tooltip" data-placement="top" title="上一页"></span></a>
+        </li>
+        {% endif %}
+        {% for x in pages %}
+            {% if x == filelist.number %}
+                <li class="active"><a href="?page={{x}}">{{ x }}</a></li>
+            {% else %}
+                <li class=""><a href="?page={{x}}">{{ x }}</a></li>
+            {% endif %}
+
+        {% endfor %}
+        {% if filelist.has_next %}
+        <li><a href="?page={{ filelist.next_page_number }}" aria-label="Next"><span class="glyphicon glyphicon-forward" data-toggle="tooltip" data-placement="top" title="下一页"></span></a>
+        </li>
+        {% endif %}
+        <li><a href="?page={{ filelist.paginator.num_pages }}"><span class="glyphicon glyphicon glyphicon-fast-forward" data-toggle="tooltip" data-placement="top" title="末页"></span></a></li>
+    </ul>
+</nav>
+-->
+{% endif %}
+{% endblock %}

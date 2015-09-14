@@ -1,0 +1,55 @@
+{% extends 'bs1/base/base.html' %}
+{% block header %} 
+<title>containers detail</title>
+{% endblock %}
+
+{% block body %}
+
+<button type="button" class="btn btn-success btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>start
+</button>
+
+<button type="button" class="btn btn-info btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>stop
+</button>
+
+<button type="button" class="btn btn-primary btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>restart
+</button>
+
+<button type="button" class="btn btn-success btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>create
+</button>
+
+<button type="button" class="btn btn-danger btn-lg">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>destory
+</button>
+
+{% if all%}
+<table class="table table-striped">
+    <thead>
+	<tr>
+	    <th>#</th>
+        <th>status</th>
+        <th>Id</th>
+	    <th>Name</th>
+	    <th>Image</th>
+	    <th>Engine</th>
+	</tr>
+    </thead>
+    <tbody>
+    {% for x in all %}
+    <tr>
+	<th> {{ forloop.counter }} </th>
+    <th><span class="" title="{{x.Status}}"></span></th>
+    <th> <a href="/containers/detail/{{ x.Id }}"> {{ x.Id|slice:":12" }} </a></th>
+	<th> {{ x.Names }} </th>
+	<th> {{ x.Image }} </th>
+    <th> {{ x.Engine }} </th>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}
+{% endblock %}
