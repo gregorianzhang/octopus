@@ -47,6 +47,11 @@ def destroy(request):
     return HttpResponse('destroy')
 
 def detail(request,containers):
+    print containers
+    container = containers.split("?")
+    for x in container:
+        print x
+
     return render(request,'bs1/containers/detail.html',locals())
     #return HttpResponse(containers)
 
