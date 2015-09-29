@@ -26,7 +26,7 @@
     <tr>
 	<th> {{ forloop.counter }} </th>
     <th><span class="" title="{{z.Status}}"></span></th>
-    <th> <a href="/containers/detail/{{ z.Id }}?{{x.Addr}}"> {{ z.Id|slice:":12" }} </a></th>
+    <th> <a href="/containers/detail/{{ z.Id }}/{{z.Engine}}"> {{ z.Id|slice:":12" }} </a></th>
 	<th> {{ z.Names }} </th>
 	<th> {{ z.Image }} </th>
     <th> {{ z.Engine }} </th>

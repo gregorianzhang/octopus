@@ -46,11 +46,16 @@ def create(request):
 def destroy(request):
     return HttpResponse('destroy')
 
-def detail(request,containers):
-    print containers
-    container = containers.split("?")
-    for x in container:
-        print x
+def detail(request,container,engine):
+    #print container,engine
+    #container = containers.split("?")
+    #for x in container:
+    #    print x
+    data = docker(engine,'containers/'+ container + '/json','GET','')
+    all = data
+    #print type(data)
+    print all["State"]
+
 
     return render(request,'bs1/containers/detail.html',locals())
     #return HttpResponse(containers)

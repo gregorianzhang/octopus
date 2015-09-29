@@ -4,6 +4,7 @@ import json
 def docker(host,command,method,data):
     http = urllib3.PoolManager()
     url = host + "/" + command
+    print "url %s " % url
     if method == 'GET':
         try:
             r = http.request(method,url)

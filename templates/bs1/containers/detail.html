@@ -30,24 +30,44 @@
     <thead>
 	<tr>
 	    <th>#</th>
-        <th>status</th>
-        <th>Id</th>
-	    <th>Name</th>
-	    <th>Image</th>
-	    <th>Engine</th>
+        <th>key</th>
+        <th>value</th>
 	</tr>
     </thead>
     <tbody>
-    {% for x in all %}
     <tr>
-	<th> {{ forloop.counter }} </th>
-    <th><span class="" title="{{x.Status}}"></span></th>
-    <th> <a href="/containers/detail/{{ x.Id }}"> {{ x.Id|slice:":12" }} </a></th>
-	<th> {{ x.Names }} </th>
-	<th> {{ x.Image }} </th>
-    <th> {{ x.Engine }} </th>
+	<th>  </th>
+    <th> Name </th>
+    <th> {{ all.Name|slice:"1:" }} </th>
     </tr>
-    {% endfor %}
+	<th>  </th>
+    <th> Hostname </th>
+    <th> {{ all.Config.Hostname }} </th>
+    </tr>
+	<th>  </th>
+    <th> Image </th>
+    <th> {{ all.Config.Image }} </th>
+    </tr>
+	<th>  </th>
+    <th> IP Address </th>
+    <th> {{ all.NetworkSettings.IPAddress }} </th>
+    </tr>
+	<th>  </th>
+    <th> MacAddress </th>
+    <th> {{ all.NetworkSettings.MacAddress }} </th>
+    </tr>
+	<th>  </th>
+    <th> Running </th>
+    <th> {{ all.State.Running }} </th>
+    </tr>
+	<th>  </th>
+    <th> Ports </th>
+    <th> {{ all.NetworkSettings.Ports }} </th>
+    </tr>
+	<th>  </th>
+    <th> start time </th>
+    <th> {{ all.State.StartedAt }} </th>
+    </tr>
     </tbody>
 </table>
 
