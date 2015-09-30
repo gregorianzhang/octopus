@@ -5,8 +5,8 @@
 
 {% block body %}
 
-<button type="button" class="btn btn-success btn-lg">
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+<button type="button" class="btn btn-success btn-lg" onclick='location.href="{% url 'add' %}"'>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true">Add</span>
 </button>
 
 {% if bb%}
