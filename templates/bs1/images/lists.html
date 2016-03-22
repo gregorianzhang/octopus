@@ -1,41 +1,43 @@
 {% extends 'bs1/base/base.html' %}
 {% block header %} 
-<title>containers list</title>
+<title>images list</title>
 {% endblock %}
 
 {% block body %}
 
-<button type="button" class="btn btn-success btn-lg" onclick='location.href="{% url 'create' %}"'>
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create
+<button type="button" class="btn btn-success btn-lg" onclick='location.href="{% url 'add' %}"'>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true">Add</span>
 </button>
 
-{% if all%}
+{% if bb%}
 <table class="table table-striped">
     <thead>
 	<tr>
 	    <th>#</th>
-        <th>status</th>
-        <th>Id</th>
+        <th>stats</th>
 	    <th>Name</th>
-	    <th>Image</th>
-	    <th>Engine</th>
+	    <th>Cpus</th>
+	    <th>Memory</th>
+	    <th>Addr</th>
+	    <th>Version</th>
 	</tr>
     </thead>
     <tbody>
-    {% for z in all %}
+    {% for x in bb %}
     <tr>
-	<th> {{ forloop.counter }} </th>
-    <th><span class="" title="{{z.Status}}"></span></th>
-    <th> <a href="/containers/detail/{{ z.Id }}/{{z.Engine}}"> {{ z.Id|slice:":12" }} </a></th>
-	<th> {{ z.Names }} </th>
-	<th> {{ z.Image }} </th>
-    <th> {{ z.Engine }} </th>
+	<th> {{ x.id }} </th>
+    <th><div class="stats" title="{{x.status}}"></div></th>
+	<th> {{ x.Name }} </th>
+	<th> {{ x.Cpus }} </th>
+    <th> {{ x.Memory }} <span>M</span></th>
+    <th> <a href="/engines/detail/{{x.Addr}}"> {{ x.Addr }} </a></th>
+	<th> {{ x.Version }} </th>
     </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<!--
+
 <nav>
     <ul class="pagination">
         <li><a href="?page=1" aria-label="Previous"><span class="glyphicon glyphicon-fast-backward" data-toggle="tooltip" data-placement="top" title="首页"></span></a>
@@ -58,6 +60,15 @@
         <li><a href="?page={{ filelist.paginator.num_pages }}"><span class="glyphicon glyphicon glyphicon-fast-forward" data-toggle="tooltip" data-placement="top" title="末页"></span></a></li>
     </ul>
 </nav>
--->
+
 {% endif %}
+
+
+<script>
+
+$('[title=up]').css({"height":"15px","width":"15px","border-radius":"50%","background": "green"})
+$('[title=down]').css({"height":"15px","width":"15px","border-radius":"50%","background": "red"})
+
+</script>
+
 {% endblock %}

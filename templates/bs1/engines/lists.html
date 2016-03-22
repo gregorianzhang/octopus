@@ -14,7 +14,7 @@
     <thead>
 	<tr>
 	    <th>#</th>
-        <th>status</th>
+        <th>stats</th>
 	    <th>Name</th>
 	    <th>Cpus</th>
 	    <th>Memory</th>
@@ -26,7 +26,7 @@
     {% for x in bb %}
     <tr>
 	<th> {{ x.id }} </th>
-    <th><span class="" title="{{x.status}}"></span></th>
+    <th><div class="stats" title="{{x.status}}"></div></th>
 	<th> {{ x.Name }} </th>
 	<th> {{ x.Cpus }} </th>
     <th> {{ x.Memory }} <span>M</span></th>
@@ -64,5 +64,11 @@
 {% endif %}
 
 
+<script>
+
+$('[title=up]').css({"height":"15px","width":"15px","border-radius":"50%","background": "green"})
+$('[title=down]').css({"height":"15px","width":"15px","border-radius":"50%","background": "red"})
+
+</script>
 
 {% endblock %}

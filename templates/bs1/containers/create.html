@@ -1,31 +1,14 @@
 {% extends 'bs1/base/base.html' %}
 {% block header %} 
-<title>containers detail</title>
+<title>containers create</title>
 {% endblock %}
 
 {% block body %}
-
-<button type="button" class="btn btn-success btn-lg" onclick='location.href="/containers/start/{{all.Config.Hostname}}/{{engine}}"'>
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>start
-</button>
-
-<button type="button" class="btn btn-info btn-lg" onclick='location.href="/containers/stop/{{all.Config.Hostname}}/{{engine}}"' >
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>stop
-</button>
-
-<button type="button" class="btn btn-primary btn-lg" onclick='location.href="/containers/restart/{{all.Config.Hostname}}/{{engine}}"'>
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>restart
-</button>
 
 <button type="button" class="btn btn-success btn-lg" onclick='location.href="{% url 'create' %}"'>
 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>create
 </button>
 
-<button type="button" class="btn btn-danger btn-lg" onclick='location.href="/containers/destroy/{{all.Config.Hostname}}/{{engine}}"'>
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>destroy
-</button>
-
-{% if all%}
 <table class="table table-striped">
     <thead>
 	<tr>
@@ -71,5 +54,4 @@
     </tbody>
 </table>
 
-{% endif %}
 {% endblock %}

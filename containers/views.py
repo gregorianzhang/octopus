@@ -1,6 +1,6 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.http import Http404, HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
@@ -41,16 +41,23 @@ def list(request):
 #    return HttpResponse('list')
 
 def create(request):
-    return HttpResponse('create')
+    return render(request,'bs1/containers/create.html',locals())
 
-def destroy(request):
-    return HttpResponse('destroy')
+def destroy(request, container, engine):
+    data = docker(engine,'containers/'+container+'/kill','POST','')
+    data1 = docker(engine,'containers/'+container+'?v=1&force=1' ,'DELETE','')
+    #return HttpResponse('destroy ' + container)
+    print data,data1
+    return HttpResponseRedirect('/containers/list')
 
 def detail(request,container,engine):
     #print container,engine
     #container = containers.split("?")
     #for x in container:
     #    print x
+    print "x" * 17
+    print engine
+    print "x" * 17
     data = docker(engine,'containers/'+ container + '/json','GET','')
     all = data
     #print type(data)
@@ -60,13 +67,22 @@ def detail(request,container,engine):
     return render(request,'bs1/containers/detail.html',locals())
     #return HttpResponse(containers)
 
-def start(request):
-    return HttpResponse('start')
+def start(request, container, engine):
+    data = docker(engine,'containers/'+container+'/start','POST','')
+    #return redirect('containers/detail/'+ container+engine)
+    #return redirect('/aa')
+    return HttpResponseRedirect('/containers/detail/'+container+'/'+engine)
+#    return HttpResponse(data )
 
-def stop(request):
-    return HttpResponse('stop')
+def stop(request, container, engine):
+    data = docker(engine,'containers/'+container+'/stop','POST','')
+    return HttpResponseRedirect('/containers/detail/'+container+'/'+engine)
+    #return HttpResponse('/containers/detail/'+container+engine)
 
-def restart(request):
-    return HttpResponse('restart')
+def restart(request, container, engine):
+
+    data = docker(engine,'containers/'+container+'/restart','POST','')
+    #return HttpResponse('restart ' + container)
+    return HttpResponseRedirect('/containers/detail/'+container+'/'+engine)
 
 
