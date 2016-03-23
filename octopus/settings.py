@@ -40,6 +40,8 @@ INSTALLED_APPS = (
 
     'debug_toolbar',
     'engines',
+    'images',
+    'containers',
 )
 
 MIDDLEWARE_CLASSES = (

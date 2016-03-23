@@ -18,9 +18,11 @@ from django.contrib import admin
 
 from engines import urls as engines_urls
 from containers import urls as containers_urls
+from images import urls as images_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^engines/', include(engines_urls)),
     url(r'^containers/', include(containers_urls)),
+    url(r'^images/', include(images_urls)),
 ]

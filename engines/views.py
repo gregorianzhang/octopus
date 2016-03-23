@@ -10,7 +10,7 @@ import json
 import urllib3
 
 
-http = urllib3.PoolManager()
+http = urllib3.PoolManager(timeout=3.0)
 # Create your views here.
 def docker(host,command,method,data):
     #http = urllib3.PoolManager()
@@ -42,6 +42,7 @@ def getdata(data,key):
 
 def lists(request):
     allengines1 = Engines.objects.all()
+    print allengines1
     allengines = []
     bb={}
     n=1
