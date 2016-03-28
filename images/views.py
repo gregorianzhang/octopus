@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from engines.models import Engines
 import json
 import urllib3
+import datetime
+
 
 http = urllib3.PoolManager(timeout=3.0)
 
@@ -41,32 +43,41 @@ def getdata(data,key):
 
 def lists(request):
     allengines1 = Engines.objects.all()
-    print allengines1
+    #print allengines1
+    images =[]
     bb={}
     n=1
     for x in allengines1:
-        print x.Addr
+        #print x.Addr
         tt = json.loads(docker(x.Addr,'images/json','GET',''))
-        print tt
-        print type(tt)
         #print tt[0]
-        print len(tt),type(tt)
-        for yy in tt:
-            print "----------------------------------------------------"
-            print yy,type(yy)
+        #print len(tt),type(tt)
+        #print tt
+        print "---------------"
+        print bb
+        print "8888888888888888888888888"
+        if not isinstance(tt,list):
+            continue
+        else:
+            for yy in tt:
             #print yy.has_key('Id')
+            
+                bb['number']=n
+                #print yy['Created']
+                #print yy['RepoTags']
+                bb['REPOSITORY']=yy['RepoTags'][0].split(':')[0]
+                bb['TAG']=yy['RepoTags'][0].split(':')[1]
             #print yy['Id']
-
-            bb['number']=n
-            #print yy['Created']
-            #print yy['RepoTags']
-            #bb['REPOSITORY']=yy['RepoTags'][0].split(':')[0]
-            #bb['TAG']=yy['RepoTags'][0].split(':')[0]
-            #print yy['Id']
-            #bb['image_id']=yy['Id']
-            #bb['VirtualSize']=yy['VirtualSize']
-            n = n + 1
-    print bb
+                bb['image_id']=yy['Id']
+                bb['VirtualSize']=yy['VirtualSize']
+                bb['date']=datetime.datetime.fromtimestamp(yy['Created'])
+                bb['engine']=x.Addr
+                n = n + 1
+                images.append(bb)
+                bb={}
+    print images
+    if images:
+        bb = images
     #    vdata = getdata(docker(x.Addr,'images/json','GET',''),'Id')
     #    print vdata
 

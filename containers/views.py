@@ -24,7 +24,7 @@ def list(request):
             print "x" *80
             try:
                 if t["Status"].find('Up') != -1:
-                    tmp["Status"] = "Up"
+                    tmp["Status"] = "up"
                 elif t["Status"].find('Exited') != -1:
                     tmp["Status"] = "Down"
                 tmp["Id"] = t["Id"]

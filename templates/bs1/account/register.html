@@ -1,0 +1,18 @@
+{% extends 'bs1/base/base.html' %}
+{% block header %}
+<title> Register </title>
+{% endblock %}
+
+{% block body %}
+
+<button type="button" class="btn btn-success btn-lg" onclick="window.location='/account/register';">
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+</button>
+
+<form action="{% url "register" %}" method="post" >
+    {% csrf_token %}
+    {{ data.as_p }}
+    <input type="submit" value="Save" />
+</form>
+
+{% endblock %}

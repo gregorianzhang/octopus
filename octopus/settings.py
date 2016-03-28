@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'engines',
     'images',
     'containers',
+    'warfile',
+    'account',
 )
 
 MIDDLEWARE_CLASSES = (

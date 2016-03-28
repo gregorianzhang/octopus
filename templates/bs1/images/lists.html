@@ -14,24 +14,24 @@
     <thead>
 	<tr>
 	    <th>#</th>
-        <th>stats</th>
-	    <th>Name</th>
-	    <th>Cpus</th>
-	    <th>Memory</th>
-	    <th>Addr</th>
-	    <th>Version</th>
+        <th>REPOSITORY</th>
+	    <th>TAG</th>
+	    <th>IMAGE ID</th>
+	    <th>SIZE</th>
+	    <th>DATE</th>
+	    <th>ENGINES</th>
 	</tr>
     </thead>
     <tbody>
     {% for x in bb %}
     <tr>
-	<th> {{ x.id }} </th>
-    <th><div class="stats" title="{{x.status}}"></div></th>
-	<th> {{ x.Name }} </th>
-	<th> {{ x.Cpus }} </th>
-    <th> {{ x.Memory }} <span>M</span></th>
-    <th> <a href="/engines/detail/{{x.Addr}}"> {{ x.Addr }} </a></th>
-	<th> {{ x.Version }} </th>
+	<th> {{ x.number }} </th>
+    <th> {{ x.REPOSITORY }}</th>
+	<th> {{ x.TAG }} </th>
+	<th> {{ x.image_id|truncatechars:20 }} </th>
+    <th> {{ x.VirtualSize|filesizeformat }} </th>
+	<th> {{ x.date|date }} </th>
+    <th> <a href="/engines/detail/{{x.engine}}"> {{ x.engine }} </a></th>
     </tr>
     {% endfor %}
     </tbody>

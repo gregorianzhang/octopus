@@ -19,10 +19,15 @@ from django.contrib import admin
 from engines import urls as engines_urls
 from containers import urls as containers_urls
 from images import urls as images_urls
+from warfile import urls as warfile_urls
+from account import urls as account_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^engines/', include(engines_urls)),
     url(r'^containers/', include(containers_urls)),
     url(r'^images/', include(images_urls)),
+    url(r'^warfile/', include(warfile_urls)),
+    url(r'^account/', include(account_urls)),
+    
 ]
