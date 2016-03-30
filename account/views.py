@@ -5,10 +5,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import Http404, HttpResponseRedirect
-from django.contrib import auth
+#from django.contrib import auth
+from django.contrib.auth import authenticate, login
 from forms import RegisterUserForm, LoginUserForm
 from models import Username
-
+from django.contrib.auth.models import User
 
 
 def login_view(request):
@@ -16,24 +17,24 @@ def login_view(request):
     if request.method == 'POST':
         print "POST"
         logind = LoginUserForm(request.POST)
-        print logind
-        print request.POST['username']
-        if logind.is_vaild():
+        #print logind
+        #print request.POST['username']
+        if logind.is_valid():
             username = request.POST['username']
             password = request.POST['password']
             print username,password
-            userdate = auth.authenticate(username=username, password=password)
-            #if userdata is not None and userdata.is_active:
-            #    auth.login(request, userdata)
-            #    return HttpResponseRedirect('/index/')
-            #else:
-            #    return HttpResponseRedirect('/account/login/')
+            userdata = authenticate(username=username, password=password)
+            if userdata is not None and userdata.is_active:
+                login(request, userdata)
+                return HttpResponseRedirect('/account/index/')
+            else:
+                return HttpResponseRedirect('/account/login/')
+
     else:
         print "GET"
         logind = LoginUserForm()
-        print logind
     #return HttpResponse('login')
-	return render(request, 'bs1/account/login_view.html',locals())
+    return render(request, 'bs1/account/login_view.html',locals())
 
 def logout_view(request):
     auth.logout(request)
@@ -52,9 +53,10 @@ def register(request):
             #data.save()
             username = request.POST['username']
             password = request.POST['password']
-            user = auth.models.User.objects.create_user(username,password)
+            user = User.objects.create_user(username=username,password=password)
 			#user = auth.models.User.objects.create_user('abc','111')
             user.save()
+        print type(userdata)
     else:
         userdata = RegisterUserForm()
 
