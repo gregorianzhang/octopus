@@ -8,11 +8,18 @@
 <button type="button" class="btn btn-success btn-lg" onclick="window.location='/account/login';">
 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Login
 </button>
+{% if user.is_authenticated  %}
+
+<h1> Welcome {{user.username}} </h1>
+
+{% else %}
 
 <form action="{% url "login_view" %}" method="post" >
     {% csrf_token %}
     {{ logind.as_p }}
     <input type="submit" value="Enter" />
+    <input type="hidden" name="next" value="{{ next }}" />
 </form>
+{% endif %}
 
 {% endblock %}

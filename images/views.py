@@ -7,6 +7,7 @@ import json
 import urllib3
 import datetime
 
+from django.contrib.auth.decorators import login_required
 
 http = urllib3.PoolManager(timeout=3.0)
 
@@ -41,6 +42,7 @@ def getdata(data,key):
 
 
 
+@login_required(login_url='/account/login/')
 def lists(request):
     allengines1 = Engines.objects.all()
     #print allengines1

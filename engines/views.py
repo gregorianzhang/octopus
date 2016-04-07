@@ -10,6 +10,8 @@ import json
 import urllib3
 
 
+from django.contrib.auth.decorators import login_required
+
 http = urllib3.PoolManager(timeout=3.0)
 # Create your views here.
 def docker(host,command,method,data):
@@ -40,6 +42,7 @@ def getdata(data,key):
     except:
         return "error"
 
+@login_required()
 def lists(request):
     allengines1 = Engines.objects.all()
     print allengines1
@@ -131,6 +134,8 @@ def remove(request):
     #return render(request,'bs1/engines/remove.html',locals())
         return HttpResponseRedirect('engines/lists/')
 
+
+@login_required(login_url='/account/login/')
 def detail(request,engine):
     print engine
     bb = Engines.objects.filter(Addr=engine)

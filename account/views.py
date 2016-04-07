@@ -6,11 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import Http404, HttpResponseRedirect
 #from django.contrib import auth
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from forms import RegisterUserForm, LoginUserForm
 from models import Username
 from django.contrib.auth.models import User
 
+#import django.contrib.auth.views.login 
 
 def login_view(request):
     #return HttpResponse('login')
@@ -26,19 +27,22 @@ def login_view(request):
             userdata = authenticate(username=username, password=password)
             if userdata is not None and userdata.is_active:
                 login(request, userdata)
-                return HttpResponseRedirect('/account/index/')
+                #return HttpResponseRedirect('/account/index/')
+                return HttpResponseRedirect(request.POST.get('next'))
+                #return HttpResponseRedirect('/account/index/?next=/images/')
             else:
                 return HttpResponseRedirect('/account/login/')
 
     else:
+        
         print "GET"
         logind = LoginUserForm()
     #return HttpResponse('login')
     return render(request, 'bs1/account/login_view.html',locals())
 
 def logout_view(request):
-    auth.logout(request)
-    return HttpResponseRedirect("/account/loggedout/")
+    logout(request)
+    return HttpResponseRedirect("/account/login/")
 
 def register(request):
     if request.method == 'POST':
@@ -66,8 +70,13 @@ def register(request):
 
     #return HttpResponse('register')
 
-@login_required
+@login_required()
 def index(request):
-    return HttpResponse('index')
+    try:
+        user = request.user.username
+    except  User.DoesNotExist:
+        #//handle the case when the user does not exist.
+        user = "index"
+    return HttpResponse(user)
 
 
