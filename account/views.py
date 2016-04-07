@@ -11,15 +11,17 @@ from forms import RegisterUserForm, LoginUserForm
 from models import Username
 from django.contrib.auth.models import User
 
+#from django.contrib.auth.views import login
 #import django.contrib.auth.views.login 
 
 def login_view(request):
-    #return HttpResponse('login')
+    #return HttpResponse('login')a
     if request.method == 'POST':
         print "POST"
         logind = LoginUserForm(request.POST)
         #print logind
-        #print request.POST['username']
+        print request
+
         if logind.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -28,14 +30,17 @@ def login_view(request):
             if userdata is not None and userdata.is_active:
                 login(request, userdata)
                 #return HttpResponseRedirect('/account/index/')
-                return HttpResponseRedirect(request.POST.get('next'))
+                return HttpResponseRedirect(request.POST.get('next'),locals())
                 #return HttpResponseRedirect('/account/index/?next=/images/')
             else:
-                return HttpResponseRedirect('/account/login/')
+                return HttpResponseRedirect('/account/login/',locals())
 
-    else:
-        
+    else:   
         print "GET"
+        try:
+            next = request.GET['next']
+        except:
+            next = "/"
         logind = LoginUserForm()
     #return HttpResponse('login')
     return render(request, 'bs1/account/login_view.html',locals())
